@@ -54,6 +54,7 @@ ORDER BY produto
 """
 
 
+# Percorre a lista e acumula total, média e agrupamentos no laço.
 def calcular_procedural(vendas):
     total_geral = 0.0
     valor_por_categoria = {}
@@ -84,6 +85,7 @@ def calcular_procedural(vendas):
     }
 
 
+# Grava as vendas numa tabela e obtém o relatório com consultas SQL.
 def calcular_sql(vendas):
     conexao = sqlite3.connect(":memory:")
     conexao.row_factory = sqlite3.Row
@@ -114,6 +116,7 @@ def calcular_sql(vendas):
     }
 
 
+# Mostra o faturamento, o ticket médio e os agrupamentos.
 def imprimir(relatorio):
     print("=== RELATÓRIO DE VENDAS ===")
     print(f"Faturamento total: R$ {relatorio['faturamento_total']:.2f}")
@@ -128,6 +131,7 @@ def imprimir(relatorio):
         print(f"- {produto}: {quantidade}")
 
 
+# Compara o resultado SQL com o resultado do laço.
 def conferir(obtido, esperado):
     divergencias = []
 
@@ -157,6 +161,7 @@ def conferir(obtido, esperado):
     return divergencias
 
 
+# Executa os dois cálculos, imprime o relatório e confere se batem.
 def main():
     esperado = calcular_procedural(VENDAS)
     obtido = calcular_sql(VENDAS)
